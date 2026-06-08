@@ -6,6 +6,7 @@ const path    = require('path');
 const catalogRoutes   = require('./routes/catalog');
 const authRoutes      = require('./routes/auth');
 const favoritesRoutes = require('./routes/favorites');
+const db = require('./db');
 
 const migrate = require('./migrate');
 const app  = express();
@@ -40,6 +41,21 @@ app.get('/api', (req, res) => {
       favorites: '/api/favorites/:userId | /api/favorites/toggle'
     }
   });
+});
+
+// ── GET /api/health — diagnosa ──
+app.get('/api/health', async (req, res) => {
+  const result = { ok: true, db: false, tables: [] };
+  try {
+    await db.query('SELECT 1');
+    result.db = true;
+    const [tables] = await db.query('SHOW TABLES');
+    result.tables = tables.map(t => Object.values(t)[0]);
+  } catch (err) {
+    result.ok = false;
+    result.error = err.message;
+  }
+  res.json(result);
 });
 
 // ── 404 HANDLER ──
