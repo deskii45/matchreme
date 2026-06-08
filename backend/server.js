@@ -7,6 +7,7 @@ const catalogRoutes   = require('./routes/catalog');
 const authRoutes      = require('./routes/auth');
 const favoritesRoutes = require('./routes/favorites');
 
+const migrate = require('./migrate');
 const app  = express();
 const PORT = process.env.PORT || 3000;
 
@@ -50,6 +51,13 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
   console.error('[SERVER ERROR]', err);
   res.status(500).json({ ok: false, msg: 'Internal server error.' });
+});
+
+// ── MIGRASI DB ──
+migrate().then(() => {
+  console.log('✅ Database siap.');
+}).catch(err => {
+  console.warn('⚠️ Migrasi error (akan dilanjutkan):', err.message);
 });
 
 // ── START SERVER ──
