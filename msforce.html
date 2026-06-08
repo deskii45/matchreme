@@ -3,12 +3,124 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>MS Merchandise – Produk Custom Laser & Bubut</title>
+  <title>MS Merchandise – Produk Custom Laser &amp; Bubut</title>
+  <meta name="description" content="MS Merchandise – Produk custom berbahan stainless, acrylic, dan logam. Souvenir, ornamen, otomotif. Bandung."/>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
 </head>
-</head>
 <body>
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="modalOverlay"></div>
+
+<!-- MODAL LOGIN / REGISTER -->
+<div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <button class="modal-close" id="closeLoginModal" aria-label="Tutup">&times;</button>
+  <div class="modal-tabs">
+    <button class="modal-tab on" id="tabLogin" data-tab="login">Masuk</button>
+    <button class="modal-tab" id="tabRegister" data-tab="register">Daftar</button>
+  </div>
+
+  <!-- TAB LOGIN -->
+  <div class="modal-panel" id="panelLogin">
+    <div class="modal-icon"></div>
+    <h2 id="modalTitle">Masuk ke Akun</h2>
+    <p class="modal-sub">Login sebagai Admin atau Klien</p>
+    <div class="mfg">
+      <label for="loginUser">Username</label>
+      <input type="text" id="loginUser" placeholder="Masukkan username" autocomplete="username"/>
+    </div>
+    <div class="mfg">
+      <label for="loginPass">Password</label>
+      <div class="pw-wrap">
+        <input type="password" id="loginPass" placeholder="Masukkan password" autocomplete="current-password"/>
+        <button type="button" class="pw-eye" id="togglePass">👁</button>
+      </div>
+    </div>
+    <div class="modal-hint" id="loginHint">Admin default: <strong>admin</strong> / <strong>admin123</strong></div>
+    <div class="modal-err" id="loginErr"></div>
+    <button class="btn-main full-w" id="doLogin">Masuk →</button>
+  </div>
+
+  <!-- TAB REGISTER -->
+  <div class="modal-panel hidden" id="panelRegister">
+    <div class="modal-icon"></div>
+    <h2>Daftar Akun Klien</h2>
+    <p class="modal-sub">Buat akun untuk menambahkan produk ke favorit</p>
+    <div class="mfg">
+      <label for="regNama">Nama Lengkap</label>
+      <input type="text" id="regNama" placeholder="Nama Anda" autocomplete="name"/>
+    </div>
+    <div class="mfg">
+      <label for="regUser">Username</label>
+      <input type="text" id="regUser" placeholder="Pilih username unik" autocomplete="username"/>
+    </div>
+    <div class="mfg">
+      <label for="regPass">Password</label>
+      <div class="pw-wrap">
+        <input type="password" id="regPass" placeholder="Min. 6 karakter" autocomplete="new-password"/>
+        <button type="button" class="pw-eye" id="toggleRegPass">👁</button>
+      </div>
+    </div>
+    <div class="modal-err" id="regErr"></div>
+    <button class="btn-main full-w" id="doRegister">Daftar Sekarang →</button>
+  </div>
+</div>
+
+<!-- MODAL FORM PRODUK (ADMIN) -->
+<div class="modal modal-wide" id="prodModal" role="dialog" aria-modal="true" aria-labelledby="prodModalTitle">
+  <button class="modal-close" id="closeProdModal" aria-label="Tutup">&times;</button>
+  <div class="modal-icon">📦</div>
+  <h2 id="prodModalTitle">Tambah Produk</h2>
+  <p class="modal-sub">Isi detail produk katalog</p>
+  <input type="hidden" id="editProdId"/>
+  <div class="mfg">
+    <label for="prodNama">Nama Produk *</label>
+    <input type="text" id="prodNama" placeholder="Contoh: Keychain Custom Besi"/>
+  </div>
+  <div class="mfg-row">
+    <div class="mfg">
+      <label for="prodKat">Kategori *</label>
+      <select id="prodKat">
+        <option value="souvenir">Souvenir</option>
+        <option value="ornamen">Ornamen</option>
+        <option value="otomotif">Otomotif</option>
+      </select>
+    </div>
+    <div class="mfg">
+      <label for="prodHarga">Info Harga</label>
+      <input type="text" id="prodHarga" placeholder="Harga menyesuaikan desain"/>
+    </div>
+  </div>
+  <div class="mfg">
+    <label for="prodImg">URL Gambar</label>
+    <input type="text" id="prodImg" placeholder="Nama file atau URL gambar (contoh: keychain.jpg)"/>
+  </div>
+  <div class="mfg">
+    <label for="prodAlt">Alt Text Gambar</label>
+    <input type="text" id="prodAlt" placeholder="Deskripsi singkat gambar"/>
+  </div>
+  <div class="mfg">
+    <label for="prodWA">Pesan WA (teks URL encode)</label>
+    <input type="text" id="prodWA" placeholder="Halo,%20saya%20ingin%20tanya%20harga..."/>
+  </div>
+  <div class="modal-err" id="prodErr"></div>
+  <div class="modal-actions">
+    <button class="btn-ghost" id="cancelProd">Batal</button>
+    <button class="btn-main" id="saveProd">Simpan Produk →</button>
+  </div>
+</div>
+
+<!-- PANEL FAVORIT KLIEN -->
+<div class="fav-panel" id="favPanel" role="dialog" aria-modal="true" aria-labelledby="favTitle">
+  <div class="fav-header">
+    <h2 id="favTitle">❤ Favorit Saya</h2>
+    <button class="modal-close static" id="closeFavPanel" aria-label="Tutup">&times;</button>
+  </div>
+  <div class="fav-body" id="favBody">
+    <!-- diisi JS -->
+  </div>
+</div>
 
 <!-- NAVBAR -->
 <nav id="topnav">
@@ -16,7 +128,7 @@
     <div class="brand-badge">MS<br>MRCH</div>
     <div>
       <span class="brand-text"><em>MS</em> Merchandise</span>
-      <span class="brand-sub">Produk Custom · Laser & Bubut</span>
+      <span class="brand-sub">Produk Custom · Laser &amp; Bubut</span>
     </div>
   </a>
   <ul class="nav-links">
@@ -32,6 +144,24 @@
     <li><a href="#tentang">Tentang Kami</a></li>
     <li><a href="#hubungi">Hubungi Kami</a></li>
   </ul>
+
+  <!-- USER AREA (dinamis) -->
+  <div class="nav-user-area" id="navUserArea">
+    <!-- guest: tampil tombol login -->
+    <div id="guestNav">
+      <button class="nav-login-btn" id="openLoginBtn">🔐 Login</button>
+    </div>
+    <!-- logged in: tampil info user -->
+    <div id="userNav" class="hidden">
+      <div class="nav-user-info">
+        <span class="nav-user-badge" id="navRoleBadge">Admin</span>
+        <span class="nav-user-name" id="navUserName">Admin</span>
+      </div>
+      <button class="nav-fav-btn hidden" id="navFavBtn" title="Favorit Saya">❤ <span id="favCount">0</span></button>
+      <button class="nav-logout-btn" id="logoutBtn">Keluar</button>
+    </div>
+  </div>
+
   <a href="https://wa.me/6281313811372" target="_blank" class="nav-cta"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp</a>
   <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">🌙</button>
   <button class="hamburger" id="hbg" aria-label="Menu">
@@ -55,14 +185,14 @@
   <div class="hero-lines"></div>
   <div class="hero-accent"></div>
   <div class="hero-inner">
-    <div class="hero-eyebrow">Produk Custom Laser & Bubut · Bandung</div>
+    <div class="hero-eyebrow">Produk Custom Laser &amp; Bubut · Bandung</div>
     <h1>
       MS<br>
       <span class="accent">MERCHAN</span><br>
       <span class="outline">DISE</span>
     </h1>
     <div class="hero-tagline">Souvenir · Ornamen · Otomotif</div>
-    <p>Kami mengerjakan berbagai produk custom berbahan stainless, acrylic, dan logam — dari souvenir unik, ornamen rumah estetik, hingga aksesori otomotif custom. Harga menyesuaikan desain & bahan. Konsultasi gratis!</p>
+    <p>Kami mengerjakan berbagai produk custom berbahan stainless, acrylic, dan logam — dari souvenir unik, ornamen rumah estetik, hingga aksesori otomotif custom. Harga menyesuaikan desain &amp; bahan. Konsultasi gratis!</p>
     <div class="hero-btns">
       <a href="#katalog" class="btn-main">Lihat Katalog Produk →</a>
       <a href="https://wa.me/6281313811372" target="_blank" class="btn-ghost"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga</a>
@@ -92,6 +222,8 @@
       <div class="sec-h">Produk Kami</div>
       <p class="sec-sub">Semua produk dikerjakan custom sesuai permintaan. Harga menyesuaikan desain, ukuran, dan bahan. Hubungi kami untuk penawaran.</p>
     </div>
+    <!-- Tombol tambah produk (admin only) -->
+    <button class="btn-admin-add hidden" id="btnAddProd">+ Tambah Produk</button>
   </div>
 
   <div class="cat-tabs">
@@ -101,168 +233,8 @@
     <button class="cat-tab" data-cat="otomotif">Otomotif</button>
   </div>
 
-  <div class="prod-grid" id="prodGrid">
-
-    <!-- SOUVENIR -->
-    <div class="prod-card" data-c="souvenir">
-      <div class="prod-img">
-        <img src="keychain.jpg" alt="Keychain Custom" loading="lazy"/>
-        <span class="cat-badge">Souvenir</span>
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">Souvenir</div>
-        <div class="prod-name">Keychain Custom</div>
-        <div class="prod-price-custom">Harga menyesuaikan desain</div>
-        <a href="https://wa.me/6281313811372?text=Halo,%20saya%20ingin%20tanya%20harga%20Keychain%20Custom" target="_blank" class="prod-tanya"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga →</a>
-      </div>
-    </div>
-
-    <div class="prod-card" data-c="souvenir">
-      <div class="prod-img">
-        <img src="plat rumah.jpg" alt="Nomor Rumah Custom" loading="lazy"/>
-        <span class="cat-badge">Souvenir</span>
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">Souvenir</div>
-        <div class="prod-name">Nomor Rumah Custom</div>
-        <div class="prod-price-custom">Harga menyesuaikan desain</div>
-        <a href="https://wa.me/6281313811372?text=Halo,%20saya%20ingin%20tanya%20harga%20Nomor%20Rumah%20Custom" target="_blank" class="prod-tanya"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga →</a>
-      </div>
-    </div>
-
-    <div class="prod-card" data-c="souvenir">
-      <div class="prod-img">
-        <img src="jam.jpg" alt="Jam Besi Custom" loading="lazy"/>
-        <span class="cat-badge">Souvenir</span>
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">Souvenir</div>
-        <div class="prod-name">Jam Besi Custom</div>
-        <div class="prod-price-custom">Harga menyesuaikan desain</div>
-        <a href="https://wa.me/6281313811372?text=Halo,%20saya%20ingin%20tanya%20harga%20Hangtag%20Baju%20Custom" target="_blank" class="prod-tanya"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga →</a>
-      </div>
-    </div>
-
-    <div class="prod-card" data-c="souvenir">
-      <div class="prod-img">
-        <img src="plakat.jpg" alt="Plakat Custom" loading="lazy"/>
-        <span class="cat-badge">Souvenir</span>
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">Souvenir</div>
-        <div class="prod-name">Plakat Custom</div>
-        <div class="prod-price-custom">Harga menyesuaikan desain</div>
-        <a href="https://wa.me/6281313811372?text=Halo,%20saya%20ingin%20tanya%20harga%20Pin%20Bros%20Custom" target="_blank" class="prod-tanya"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga →</a>
-      </div>
-    </div>
-
-    <div class="prod-card" data-c="souvenir">
-      <div class="prod-img">
-        <img src="costum souvenir.jpg" alt="Souvenir Custom Lainnya" loading="lazy"/>
-        <span class="cat-badge">Souvenir</span>
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">Souvenir</div>
-        <div class="prod-name">Custom Souvenir Lainnya (Request)</div>
-        <div class="prod-price-custom">Harga menyesuaikan desain</div>
-        <a href="https://wa.me/6281313811372?text=Halo,%20saya%20ingin%20tanya%20souvenir%20custom" target="_blank" class="prod-tanya"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga →</a>
-      </div>
-    </div>
-
-    <!-- ORNAMEN -->
-    <div class="prod-card" data-c="ornamen">
-      <div class="prod-img">
-        <img src="pagar.jpg" alt="Ornamen Pagar Rumah" loading="lazy"/>
-        <span class="cat-badge">Ornamen</span>
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">Ornamen</div>
-        <div class="prod-name">Ornamen Pagar Rumah Custom</div>
-        <div class="prod-price-custom">Harga menyesuaikan desain</div>
-        <a href="https://wa.me/6281313811372?text=Halo,%20saya%20ingin%20tanya%20harga%20Ornamen%20Pagar%20Rumah" target="_blank" class="prod-tanya"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga →</a>
-      </div>
-    </div>
-
-    <div class="prod-card" data-c="ornamen">
-      <div class="prod-img">
-        <img src="hiasan dinding.jpg" alt="Hiasan Dinding Custom" loading="lazy"/>
-        <span class="cat-badge">Ornamen</span>
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">Ornamen</div>
-        <div class="prod-name">Hiasan Dinding Custom</div>
-        <div class="prod-price-custom">Harga menyesuaikan desain</div>
-        <a href="https://wa.me/6281313811372?text=Halo,%20saya%20ingin%20tanya%20harga%20Hiasan%20Dinding" target="_blank" class="prod-tanya"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga →</a>
-      </div>
-    </div>
-
-    <div class="prod-card" data-c="ornamen">
-      <div class="prod-img">
-        <img src="partisi.jpg" alt="Partisi Ruangan Custom" loading="lazy"/>
-        <span class="cat-badge">Ornamen</span>
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">Ornamen</div>
-        <div class="prod-name">Partisi Ruangan Custom</div>
-        <div class="prod-price-custom">Harga menyesuaikan desain</div>
-        <a href="https://wa.me/6281313811372?text=Halo,%20saya%20ingin%20tanya%20harga%20Partisi%20Ruangan" target="_blank" class="prod-tanya"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga →</a>
-      </div>
-    </div>
-
-    <div class="prod-card" data-c="ornamen">
-      <div class="prod-img">
-        <img src="costum ornamen.jpg" alt="Ornamen Custom Lainnya" loading="lazy"/>
-        <span class="cat-badge">Ornamen</span>
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">Ornamen</div>
-        <div class="prod-name">Custom Ornamen Lainnya (Request)</div>
-        <div class="prod-price-custom">Harga menyesuaikan desain</div>
-        <a href="https://wa.me/6281313811372?text=Halo,%20saya%20ingin%20tanya%20ornamen%20custom" target="_blank" class="prod-tanya"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga →</a>
-      </div>
-    </div>
-
-    <!-- OTOMOTIF -->
-    <div class="prod-card" data-c="otomotif">
-      <div class="prod-img">
-        <img src="pijakan.jpg" alt="Bordes Pijakan Kaki Motor" loading="lazy"/>
-        <span class="cat-badge">Otomotif</span>
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">Otomotif</div>
-        <div class="prod-name">Pijakan Kaki Motor Custom</div>
-        <div class="prod-price-custom">Harga menyesuaikan desain</div>
-        <a href="https://wa.me/6281313811372?text=Halo,%20saya%20ingin%20tanya%20harga%20Bordes%20Motor" target="_blank" class="prod-tanya"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga →</a>
-      </div>
-    </div>
-
-    <div class="prod-card" data-c="otomotif">
-      <div class="prod-img">
-        <img src="tameng.jpg" alt="Tameng Knalpot Custom" loading="lazy"/>
-        <span class="cat-badge">Otomotif</span>
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">Otomotif</div>
-        <div class="prod-name">Tameng Knalpot Custom</div>
-        <div class="prod-price-custom">Harga menyesuaikan desain</div>
-        <a href="https://wa.me/6281313811372?text=Halo,%20saya%20ingin%20tanya%20harga%20Tameng%20Knalpot" target="_blank" class="prod-tanya"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga →</a>
-      </div>
-    </div>
-
-    <div class="prod-card" data-c="otomotif">
-      <div class="prod-img">
-        <img src="costum otomotif.jpg" alt="Custom Part Otomotif" loading="lazy"/>
-        <span class="cat-badge">Otomotif</span>
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">Otomotif</div>
-        <div class="prod-name">Custom Part Otomotif Lainnya (Request)</div>
-        <div class="prod-price-custom">Harga menyesuaikan desain</div>
-        <a href="https://wa.me/6281313811372?text=Halo,%20saya%20ingin%20tanya%20custom%20part%20otomotif" target="_blank" class="prod-tanya"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Tanya Harga →</a>
-      </div>
-    </div>
-
-  </div>
+  <!-- Grid produk diisi dinamis oleh JS -->
+  <div class="prod-grid" id="prodGrid"></div>
 </section>
 
 <!-- TENTANG -->
@@ -271,7 +243,7 @@
     <div class="about-visual">
       <div class="about-card about-card-main">
         <div class="big-num">MS</div>
-        <div class="big-num-sub">Merchandise Custom berbahan logam, stainless & acrylic</div>
+        <div class="big-num-sub">Merchandise Custom berbahan logam, stainless &amp; acrylic</div>
       </div>
       <div class="about-cards-row">
         <div class="mini-card"><div class="mini-num">3</div><div class="mini-label">Kategori Produk</div></div>
@@ -286,10 +258,10 @@
       <p class="about-desc"><strong>MS Merchandise</strong> adalah usaha yang bergerak di bidang pembuatan produk custom berbahan logam, stainless steel, dan acrylic menggunakan teknologi laser cutting dan mesin bubut. Kami hadir untuk memenuhi kebutuhan souvenir unik, dekorasi rumah estetik, hingga aksesori kendaraan bermotor yang dibuat sesuai keinginan pelanggan.</p>
       <p class="about-desc">Harga kami <strong>tidak dipatok tetap</strong> — karena setiap produk dikerjakan berdasarkan desain, ukuran, dan bahan yang dipilih. Hubungi kami untuk mendapatkan penawaran terbaik!</p>
       <div class="feat-list">
-        <div class="feat"><div class="feat-dot">✂️</div><div><div class="feat-t">Laser Cutting & Bubut</div><div class="feat-d">Dikerjakan dengan teknologi laser dan mesin bubut presisi tinggi.</div></div></div>
+        <div class="feat"><div class="feat-dot">✂️</div><div><div class="feat-t">Laser Cutting &amp; Bubut</div><div class="feat-d">Dikerjakan dengan teknologi laser dan mesin bubut presisi tinggi.</div></div></div>
         <div class="feat"><div class="feat-dot">🎨</div><div><div class="feat-t">100% Custom Sesuai Desain</div><div class="feat-d">Anda bisa request bentuk, ukuran, dan tulisan sesuai kebutuhan.</div></div></div>
         <div class="feat"><div class="feat-dot">🚚</div><div><div class="feat-t">Pengiriman ke Seluruh Indonesia</div><div class="feat-d">Melayani pengiriman aman ke semua wilayah Indonesia.</div></div></div>
-        <div class="feat"><div class="feat-dot"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div><div><div class="feat-t">Konsultasi & Penawaran Gratis</div><div class="feat-d">Ceritakan kebutuhan Anda, kami bantu wujudkan dengan harga terbaik.</div></div></div>
+        <div class="feat"><div class="feat-dot"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div><div><div class="feat-t">Konsultasi &amp; Penawaran Gratis</div><div class="feat-d">Ceritakan kebutuhan Anda, kami bantu wujudkan dengan harga terbaik.</div></div></div>
       </div>
     </div>
   </div>
@@ -298,7 +270,7 @@
 <!-- HUBUNGI -->
 <section class="sec sec-alt" id="hubungi">
   <div class="sec-eye">Hubungi Kami</div>
-  <div class="sec-h">Tanya Harga & Pesan</div>
+  <div class="sec-h">Tanya Harga &amp; Pesan</div>
   <p class="sec-sub">Ceritakan kebutuhan Anda — desain, ukuran, jumlah — dan kami akan berikan penawaran terbaik.</p>
   <div class="contact-wrap">
     <div class="contact-info-block">
@@ -356,7 +328,7 @@
   <div class="footer-top">
     <div class="footer-brand">
       <div class="footer-logo"><em>MS</em> Merchandise</div>
-      <p>Produk custom berbahan logam, stainless & acrylic — souvenir, ornamen, dan aksesori otomotif sesuai desain Anda.</p>
+      <p>Produk custom berbahan logam, stainless &amp; acrylic — souvenir, ornamen, dan aksesori otomotif sesuai desain Anda.</p>
     </div>
     <div class="footer-nav">
       <h4>Navigasi</h4>
