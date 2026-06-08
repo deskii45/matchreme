@@ -1,6 +1,6 @@
 // src/api/api.js — Fetch helper ke backend Express
 
-const BASE = '/api'; // Vite proxy → http://localhost:3000/api
+const BASE = import.meta.env.VITE_API_URL || '/api';
 
 async function apiFetch(path, options = {}) {
   const res = await fetch(BASE + path, {

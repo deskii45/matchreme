@@ -1,11 +1,12 @@
-// backend/db.js — Koneksi ke MySQL
+// backend/db.js — Koneksi ke MySQL (Railway / local)
 const mysql = require('mysql2');
 
 const pool = mysql.createPool({
-  host     : 'localhost',
-  user     : 'root',        // default XAMPP
-  password : '',            // default XAMPP (kosong)
-  database : 'msforce_db',
+  host     : process.env.MYSQL_HOST || 'localhost',
+  user     : process.env.MYSQL_USER || 'root',
+  password : process.env.MYSQL_PASSWORD || '',
+  database : process.env.MYSQL_DATABASE || 'msforce_db',
+  port     : process.env.MYSQL_PORT || 3306,
   waitForConnections: true,
   connectionLimit   : 10,
   queueLimit        : 0

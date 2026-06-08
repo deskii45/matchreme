@@ -19,9 +19,8 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ── SERVE STATIC FILES (frontend) ──
-// Melayani gambar-gambar produk dari folder root
-app.use(express.static(path.join(__dirname, '..')));
+// ── SERVE STATIC FILES (gambar produk) ──
+app.use('/public', express.static(path.join(__dirname, '..', 'frontend', 'public')));
 
 // ── API ROUTES ──
 app.use('/api/catalog',   catalogRoutes);
