@@ -1,39 +1,35 @@
 const db = require('./db');
 
-const sql = `
-CREATE TABLE IF NOT EXISTS catalog (
-  id         INT AUTO_INCREMENT PRIMARY KEY,
-  name       VARCHAR(255)                            NOT NULL,
-  cat        ENUM('souvenir','ornamen','otomotif')   NOT NULL DEFAULT 'souvenir',
-  img        VARCHAR(255)                            NOT NULL DEFAULT 'costum souvenir.jpg',
-  alt        VARCHAR(255)                            NOT NULL DEFAULT '',
-  harga      VARCHAR(255)                            NOT NULL DEFAULT 'Harga menyesuaikan desain',
-  wa         TEXT,
-  created_at TIMESTAMP                               DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
-
-CREATE TABLE IF NOT EXISTS users (
-  id         INT AUTO_INCREMENT PRIMARY KEY,
-  nama       VARCHAR(255)  NOT NULL,
-  username   VARCHAR(100)  NOT NULL UNIQUE,
-  password   VARCHAR(255)  NOT NULL,
-  role       ENUM('admin','client') NOT NULL DEFAULT 'client',
-  created_at TIMESTAMP     DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
-
-CREATE TABLE IF NOT EXISTS favorites (
-  id         INT AUTO_INCREMENT PRIMARY KEY,
-  user_id    INT NOT NULL,
-  product_id INT NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE KEY unique_fav (user_id, product_id),
-  FOREIGN KEY (user_id)    REFERENCES users(id)   ON DELETE CASCADE,
-  FOREIGN KEY (product_id) REFERENCES catalog(id) ON DELETE CASCADE
-) ENGINE=InnoDB;
-`;
-
 async function migrate() {
-  await db.query(sql);
+  await db.query(`CREATE TABLE IF NOT EXISTS catalog (
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    name       VARCHAR(255)                            NOT NULL,
+    cat        ENUM('souvenir','ornamen','otomotif')   NOT NULL DEFAULT 'souvenir',
+    img        VARCHAR(255)                            NOT NULL DEFAULT 'costum souvenir.jpg',
+    alt        VARCHAR(255)                            NOT NULL DEFAULT '',
+    harga      VARCHAR(255)                            NOT NULL DEFAULT 'Harga menyesuaikan desain',
+    wa         TEXT,
+    created_at TIMESTAMP                               DEFAULT CURRENT_TIMESTAMP
+  ) ENGINE=InnoDB`);
+
+  await db.query(`CREATE TABLE IF NOT EXISTS users (
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    nama       VARCHAR(255)  NOT NULL,
+    username   VARCHAR(100)  NOT NULL UNIQUE,
+    password   VARCHAR(255)  NOT NULL,
+    role       ENUM('admin','client') NOT NULL DEFAULT 'client',
+    created_at TIMESTAMP     DEFAULT CURRENT_TIMESTAMP
+  ) ENGINE=InnoDB`);
+
+  await db.query(`CREATE TABLE IF NOT EXISTS favorites (
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    user_id    INT NOT NULL,
+    product_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_fav (user_id, product_id),
+    FOREIGN KEY (user_id)    REFERENCES users(id)   ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES catalog(id) ON DELETE CASCADE
+  ) ENGINE=InnoDB`);
   const [rows] = await db.query('SELECT COUNT(*) AS count FROM catalog');
   if (rows[0].count === 0) {
     await db.query(`
